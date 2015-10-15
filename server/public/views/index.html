@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="techSwapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Postgres TODO App</title>
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/vendors/angular/angular.min.js"></script>
+    <!--<script type="text/javascript" src="/vendors/angular/angular.min.js.map"></script>-->
+    <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+
+</head>
+<body ng-controller="MainController">
+    <div class="container">
+        <button class="btn btn-info get">Get Info</button>
+
+        <div class="col-md-4">
+            <form id="taskForm" method="post">
+                <div>
+                    <label for="text">Task:</label>
+                    <input type="text" name="text" id="text" ng-model="taskInput"/>
+                    <input type="submit" class="btn btn-info post" value="Create Task" ng-click="taskSubmit()"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="someContainer" class="container" ng-repeat="newTask in taskList">
+
+        <div class="task well col-md-3">
+
+            <p class='lead'>{{newTask.text}}</p>
+            <button class='btn btn-danger delete' ng-click="deleteTask(newTask.id)">X</button>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</body>
+</html>
