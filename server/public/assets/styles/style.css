@@ -7,3 +7,7 @@ body {
     background-color: #262626;
     color: #dddddd;
 }
+
+.strikeThrough {
+    text-decoration: line-through;
+}

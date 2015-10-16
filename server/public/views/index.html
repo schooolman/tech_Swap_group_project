@@ -16,7 +16,7 @@
 </head>
 <body ng-controller="MainController">
     <div class="container">
-        <button class="btn btn-info get">Get Info</button>
+        <button class="btn btn-info get" ng-click="getTaskList()">Get Info</button>
 
         <div class="col-md-4">
             <form id="taskForm" method="post">
@@ -33,7 +33,7 @@
 
         <div class="task well col-md-3">
 
-            <p class='lead'>{{newTask.text}}</p>
+            <p class='lead' ng-class="{strikeThrough: newTask.complete == true}" ng-click="updateTask(newTask)">{{newTask.text}}</p>
             <button class='btn btn-danger delete' ng-click="deleteTask(newTask.id)">X</button>
 
         </div>

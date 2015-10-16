@@ -70,6 +70,8 @@ router.put('/todos/:todo_id', function(req, res) {
 
     var results = [];
 
+    console.log('Request body',req.body);
+
     // Grab data from the URL parameters
     var id = req.params.todo_id;
 
@@ -80,6 +82,7 @@ router.put('/todos/:todo_id', function(req, res) {
     pg.connect(connectionString, function(err, client, done) {
 
         // SQL Query > Update Data
+        console.log("data text: ", data.text);
         client.query("UPDATE items SET text=($1), complete=($2) WHERE id=($3)", [data.text, data.complete, id]);
 
         // SQL Query > Select Data

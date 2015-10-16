@@ -1,6 +1,5 @@
 var app = angular.module('techSwapp', []);
 
-var taskData;
 
 app.controller('MainController', ['$scope', '$http', function($scope, $http){
 
@@ -10,7 +9,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http){
 
 
     $scope.taskSubmit = function(){
-        console.log('clicking submit')
+        //console.log('clicking submit')
 
     var dataToSend = {
         text: $scope.taskInput,
@@ -21,31 +20,68 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http){
             $scope.taskList = response.data;
         });
 
-        console.log($scope.taskList);
+        //console.log($scope.taskList);
         $scope.getTaskList();
     };
 
+    $scope.deleteTask = function(taskID){
+        //var id = $scope.taskList[index];
+        console.log(taskID);
+        $http.delete('/api/todos/' + taskID).then(function(){
+            $scope.getTaskList();
+            //if (err) throw err;
+            //response.send(done);
+        });
+            //$scope.getTaskList();
+    };
 
     $scope.getTaskList = function(){
         $http.get('/api/todos').then(function(response){
             $scope.taskList = response.data;
-            console.log($scope.taskList);
+            //console.log($scope.taskList);
         })
     };
 $scope.getTaskList();
 
-
-    //This is screwy. It is being weird.
-
-    $scope.deleteTask = function(index){
-        //var id = $scope.taskList[index];
-        console.log(index);
-        $http.delete('/api/todos/' + index).then(function(err, done){
-            if (err) throw err;
-            //response.send(done);
+    $scope.updateTask = function(task){
+        //console.log(task.id);
+        //console.log(text);
+        //complete = !task.complete;
+        //console.log(complete);
+        $http.put('/api/todos/' + task.id, {text: task.text, complete: !task.complete, id: task.id}).then(function(response){
+            $scope.getTaskList();
         });
-        $scope.getTaskList();
     };
+
+    //$scope.strikeThrough = function()
+
+
+
+
+
+
+
+    //$("#someContainer").on('click', '.task p', function(){
+//        var complete;
+//        complete = !$(this).parent().data("complete");
+//        var text = $(this).text().replace(" ", "+");
+//        var putData = "text=" + text + "&complete=" + complete;
+//
+//        $.ajax({
+//            type: "PUT",
+//            data: putData,
+//            url: "/api/todos/" + $(this).parent().data("id"),
+//            success: function(data){
+//                taskData = data;
+//                appendTasks();
+//            }
+//        });
+//    });
+
+
+
+
+
 
 
 
@@ -82,22 +118,7 @@ $scope.getTaskList();
 //        });
 //    });
 //
-//    $("#someContainer").on('click', '.task p', function(){
-//        var complete;
-//        complete = !$(this).parent().data("complete");
-//        var text = $(this).text().replace(" ", "+");
-//        var putData = "text=" + text + "&complete=" + complete;
 //
-//        $.ajax({
-//            type: "PUT",
-//            data: putData,
-//            url: "/api/todos/" + $(this).parent().data("id"),
-//            success: function(data){
-//                taskData = data;
-//                appendTasks();
-//            }
-//        });
-//    });
 //
 //    $("#someContainer").on('click', '.delete', function(){
 //        var id = $(this).parent().data("id");
